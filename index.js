@@ -3,10 +3,11 @@ let formID = 'I5TJPyLr';
 
 let answers = [];
 let answerNames = [];
-let answerEmails = [];
-let answerPhone = [];
-let answerImage = [];
+let answerContact = [];
+let answerFile = [];
+let answerDescrip = [];
 let answerPrice = [];
+let answerCode = [];
 
 async function getAnswers(item){
   var ans = await item.answers;
@@ -39,38 +40,38 @@ async function getNames(ZipCode){
 }
 getNames(12345).then((res) => {console.info(res)})
 
-async function EmailObj(answer){
-  var email = answer[2].email;
-  answerEmails.push(email);
+async function ContactObj(answer){
+  var contact = answer[2].text;
+  answerContact.push(contact);
 }
-async function getEmails(ZipCode){
+async function getContact(ZipCode){
   answers = await getResponses(ZipCode);
-  answers.forEach(EmailObj)
-  return await answerEmails;
+  answers.forEach(ContactObj)
+  return await answerContact;
 }
-getEmails(12345).then((res) => {console.info(res)})
+getContact(12345).then((res) => {console.info(res)})
 
-async function PhoneObj(answer){
-  var phone = answer[3].phone_number;
-  answerPhone.push(phone);
+async function FileObj(answer){
+  var file = answer[3].file_url;
+  answerFile.push(file);
 }
-async function getPhone(ZipCode){
+async function getFile(ZipCode){
   answers = await getResponses(ZipCode);
-  answers.forEach(PhoneObj)
-  return await answerPhone;
+  answers.forEach(FileObj)
+  return await answerFile;
 }
-getPhone(12345).then((res) => {console.info(res)})
+getFile(12345).then((res) => {console.info(res)})
 
-async function ImageObj(answer){
-  var image = answer[4].url;
-  answerImage.push(image);
+async function DescripObj(answer){
+  var descrip = answer[4].text;
+  answerDescrip.push(descrip);
 }
-async function getImage(ZipCode){
+async function getDescrip(ZipCode){
   answers = await getResponses(ZipCode);
-  answers.forEach(ImageObj)
-  return await answerImage;
+  answers.forEach(DescripObj)
+  return await answerDescrip;
 }
-getImage(12345).then((res) => {console.info(res)})
+getDescrip(12345).then((res) => {console.info(res)})
 
 async function PriceObj(answer){
   var price = answer[5].text;
@@ -82,3 +83,24 @@ async function getPrice(ZipCode){
   return await answerPrice;
 }
 getPrice(12345).then((res) => {console.info(res)})
+
+async function CodeObj(answer){
+  var code = answer[6].text;
+  answerCode.push(code);
+}
+async function getCode(ZipCode){
+  answers = await getResponses(ZipCode);
+  answers.forEach(CodeObj)
+  return await answerCode;
+}
+getCode(12345).then((res) => {console.info(res)})
+
+async function deletePost(ZipCode,code){
+  let codes = getCode(ZipCode);
+  if (codes.indexOf('code') >= 0){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
