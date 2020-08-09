@@ -36,7 +36,6 @@ async function getResponses(ZipCode){
   response.items.forEach(getAnswers);
   return await answers;
 }
-getResponses(12345).then((res) => {console.info(res)})
 
 //Array with the names from each response with the zip code
 async function getNames(ZipCode){
