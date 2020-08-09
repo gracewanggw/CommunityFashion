@@ -1,8 +1,9 @@
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 let formID = 'I5TJPyLr';
 
 //variables
-const ZipCode = new URLSearchParams(window.location.search)
+const params = new URLSearchParams(window.location.search)
+const ZipCode = params.get("ZipCode");
 let answers = [];
 let answerNames = [];
 let answerContact = [];
@@ -43,7 +44,7 @@ async function getNames(ZipCode){
   }
   return await answerNames;
 }
-getNames(12345).then((res) => {console.info(res)})
+//getNames(12345).then((res) => {console.info(res)})
 
 //Array with the contact information from each response with the zip code
 async function getContact(ZipCode){
@@ -56,7 +57,7 @@ async function getContact(ZipCode){
   }
   return await answerContact;
 }
-getContact(12345).then((res) => {console.info(res)})
+//getContact(12345).then((res) => {console.info(res)})
 
 //Array with the links to the item picture from each response with the zip code
 async function getFile(ZipCode){
@@ -69,7 +70,7 @@ async function getFile(ZipCode){
   }
   return await answerFile;
 }
-getFile(12345).then((res) => {console.info(res)})
+//getFile(12345).then((res) => {console.info(res)})
 
 //Array with the item description from each response with the zip code
 async function getDescrip(ZipCode){
@@ -82,7 +83,7 @@ async function getDescrip(ZipCode){
   }
   return await answerDescrip;
 }
-getDescrip(12345).then((res) => {console.info(res)})
+//getDescrip(12345).then((res) => {console.info(res)})
 
 //Array with the item prices from each response with the zip code
 async function getPrice(ZipCode){
@@ -95,7 +96,7 @@ async function getPrice(ZipCode){
   }
   return await answerPrice;
 }
-getPrice(12345).then((res) => {console.info(res)})
+//getPrice(12345).then((res) => {console.info(res)})
 
 //Array with the deletion code from each response with the zip code
 async function getCode(ZipCode){
@@ -108,7 +109,7 @@ async function getCode(ZipCode){
   }
   return await answerCode;
 }
-getCode(12345).then((res) => {console.info(res)})
+//getCode(12345).then((res) => {console.info(res)})
 
 //checks to see if the deletion code matches
 async function deletePost(ZipCode,code){

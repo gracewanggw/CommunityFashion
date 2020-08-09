@@ -67,13 +67,14 @@
                 <div class="portfolio-item">
                     <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
                         <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                            <div class="portfolio-hover-content" id = "Descrip2"> Description</div>
                         </div>
-                        <img class="img-fluid" src="assets/img/portfolio/02-thumbnail.jpg" alt="" />
+                        <img class="img-fluid" id ="img2"  src="assets/img/portfolio/02-thumbnail.jpg" alt="" />
                     </a>
                     <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Explore</div>
-                        <div class="portfolio-caption-subheading text-muted">Graphic Design</div>
+                        <div class="portfolio-caption-text" id = "SellerName2">Seller: </div>
+                        <div class="portfolio-caption-text" id = "SellerContact2">Contact:</div>
+                        <div class="portfolio-caption-text" id = "Price2">Price:</div>
                     </div>
                 </div>
             </div>
@@ -81,13 +82,14 @@
                 <div class="portfolio-item">
                     <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
                         <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                            <div class="portfolio-hover-content" id = "Descrip3"> Description</div>
                         </div>
-                        <img class="img-fluid" src="assets/img/portfolio/03-thumbnail.jpg" alt="" />
+                        <img class="img-fluid" id ="img3" src="assets/img/portfolio/03-thumbnail.jpg" alt="" />
                     </a>
                     <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Finish</div>
-                        <div class="portfolio-caption-subheading text-muted">Identity</div>
+                      <div class="portfolio-caption-text" id = "SellerName3">Seller: </div>
+                      <div class="portfolio-caption-text" id = "SellerContact3">Contact:</div>
+                      <div class="portfolio-caption-text" id = "Price3">Price:</div>
                     </div>
                 </div>
             </div>
@@ -95,13 +97,14 @@
                 <div class="portfolio-item">
                     <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
                         <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                            <div class="portfolio-hover-content" id = "Descrip4"> Description</div>
                         </div>
-                        <img class="img-fluid" src="assets/img/portfolio/04-thumbnail.jpg" alt="" />
+                        <img class="img-fluid" id ="img4" src="assets/img/portfolio/04-thumbnail.jpg" alt="" />
                     </a>
                     <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Lines</div>
-                        <div class="portfolio-caption-subheading text-muted">Branding</div>
+                      <div class="portfolio-caption-text" id = "SellerName4">Seller: </div>
+                      <div class="portfolio-caption-text" id = "SellerContact4">Contact:</div>
+                      <div class="portfolio-caption-text" id = "Price4">Price:</div>
                     </div>
                 </div>
             </div>
@@ -109,13 +112,14 @@
                 <div class="portfolio-item">
                     <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
                         <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                            <div class="portfolio-hover-content" id = "Descrip5"> Description</div>
                         </div>
-                        <img class="img-fluid" src="assets/img/portfolio/05-thumbnail.jpg" alt="" />
+                        <img class="img-fluid" id ="img5" src="assets/img/portfolio/05-thumbnail.jpg" alt="" />
                     </a>
                     <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Southwest</div>
-                        <div class="portfolio-caption-subheading text-muted">Website Design</div>
+                      <div class="portfolio-caption-text" id = "SellerName5">Seller: </div>
+                      <div class="portfolio-caption-text" id = "SellerContact5">Contact:</div>
+                      <div class="portfolio-caption-text" id = "Price5">Price:</div>
                     </div>
                 </div>
             </div>
@@ -123,13 +127,14 @@
                 <div class="portfolio-item">
                     <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
                         <div class="portfolio-hover">
-                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                            <div class="portfolio-hover-content" id = "Descrip6"> Description</div>
                         </div>
-                        <img class="img-fluid" src="assets/img/portfolio/06-thumbnail.jpg" alt="" />
+                        <img class="img-fluid" id ="img6"  src="assets/img/portfolio/06-thumbnail.jpg" alt="" />
                     </a>
                     <div class="portfolio-caption">
-                        <div class="portfolio-caption-heading">Window</div>
-                        <div class="portfolio-caption-subheading text-muted">Photography</div>
+                      <div class="portfolio-caption-text" id = "SellerName6">Seller: </div>
+                      <div class="portfolio-caption-text" id = "SellerContact6">Contact:</div>
+                      <div class="portfolio-caption-text" id = "Price6">Price:</div>
                     </div>
                 </div>
             </div>
@@ -150,16 +155,34 @@
 <script src="assets/mail/contact_me.js"></script>
 <script src="js/scripts.js"></script>
 <script>
-  async function postProduct(){
-    var description = document.getElementById("Descrip1");
-    var price = document.getElementById("Price1");
-    var contact = document.getElementById("SellerContact1");
-    var name = document.getElementById("SellerName1");
-    var arrDescrip = getDescrip("12345");
-    console.log(arrDescrip);
-    description.innerHTML = arrDescrip[0];
+  async function postProduct(num){
+    var ind = num + 1
+    var description = document.getElementById("Descrip" + ind);
+    var price = document.getElementById("Price" + ind);
+    var contact = document.getElementById("SellerContact" + ind);
+    var name = document.getElementById("SellerName1" + ind);
+    var image = document.getElementById("img" + ind)
+    var arrDescrip = await getDescrip(ZipCode);
+    var arrPrice = await getPrice(ZipCode);
+    var arrContact = await getContact(ZipCode);
+    var arrName = await getNames(ZipCode);
+    var arrImg = await getFile(ZipCode)
+    description.innerHTML = arrDescrip[num];
+    price.innerHTML = arrPrice[num];
+    contact.innerHTML = arrContact[num];
+    name.innerHTML = arrName[num];
+    image.src = arrImg[num]
   }
-  postProduct();
+
+  async function createPosts(){
+    var arrResponses = await getResponses(ZipCode);
+    var i;
+    for(i = 0; i < arrResponses.length; i++){
+      postProduct(i)
+      console.log(i)
+    }
+  }
+  createPosts();
 </script>
 </body>
 </html>
