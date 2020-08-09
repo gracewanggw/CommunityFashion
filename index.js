@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 let formID = 'I5TJPyLr';
 
+//variables
 let answers = [];
 let answerNames = [];
 let answerContact = [];
@@ -9,6 +10,7 @@ let answerDescrip = [];
 let answerPrice = [];
 let answerCode = [];
 
+//Array with all the responses with that zip code
 async function getAnswers(item){
   var ans = await item.answers;
   answers.push(ans);
@@ -24,77 +26,97 @@ async function getResponses(ZipCode){
   let response = await fetch(url, options);
   response = await response.json();
   response = JSON.parse(JSON.stringify(response));
+  // let items = response.items;
+  // var i;
+  // for(i = 0; i < items.length; i++){
+  //   let ans = await items.answers
+  //   answers.push(ans)
+  // }
+  answers = [];
   response.items.forEach(getAnswers);
   return await answers;
 }
 getResponses(12345).then((res) => {console.info(res)})
 
-async function NameObj(answer){
-  var name = answer[0].text;
-  answerNames.push(name);
-}
+//Array with the names from each response with the zip code
 async function getNames(ZipCode){
-  answers = await getResponses(ZipCode);
-  answers.forEach(NameObj)
+  let response = await getResponses(ZipCode);
+  var i;
+  for(i = 0; i<response.length; i++){
+    var j = await response[i];
+    var name = await j[0].text;
+    answerNames.push(name);
+  }
   return await answerNames;
 }
 getNames(12345).then((res) => {console.info(res)})
 
-async function ContactObj(answer){
-  var contact = answer[2].text;
-  answerContact.push(contact);
-}
+//Array with the contact information from each response with the zip code
 async function getContact(ZipCode){
-  answers = await getResponses(ZipCode);
-  answers.forEach(ContactObj)
+  let response1 = await getResponses(ZipCode);
+  var i;
+  for(i = 0; i<response1.length; i++){
+    var j = response1[i];
+    var contact = j[2].text;
+    answerContact.push(contact);
+  }
   return await answerContact;
 }
 getContact(12345).then((res) => {console.info(res)})
 
-async function FileObj(answer){
-  var file = answer[3].file_url;
-  answerFile.push(file);
-}
+//Array with the links to the item picture from each response with the zip code
 async function getFile(ZipCode){
-  answers = await getResponses(ZipCode);
-  answers.forEach(FileObj)
+  let response2 = await getResponses(ZipCode);
+  var i;
+  for(i = 0; i<response2.length; i++){
+    var j = response2[i];
+    var file = j[3].file_url;
+    answerFile.push(file);
+  }
   return await answerFile;
 }
 getFile(12345).then((res) => {console.info(res)})
 
-async function DescripObj(answer){
-  var descrip = answer[4].text;
-  answerDescrip.push(descrip);
-}
+//Array with the item description from each response with the zip code
 async function getDescrip(ZipCode){
-  answers = await getResponses(ZipCode);
-  answers.forEach(DescripObj)
+  let response3 = await getResponses(ZipCode);
+  var i;
+  for(i = 0; i<response3.length; i++){
+    var j = response3[i];
+    var descrip = j[4].text;
+    answerDescrip.push(descrip);
+  }
   return await answerDescrip;
 }
 getDescrip(12345).then((res) => {console.info(res)})
 
-async function PriceObj(answer){
-  var price = answer[5].text;
-  answerPrice.push(price);
-}
+//Array with the item prices from each response with the zip code
 async function getPrice(ZipCode){
-  answers = await getResponses(ZipCode);
-  answers.forEach(PriceObj)
+  let response4 = await getResponses(ZipCode);
+  var i;
+  for(i = 0; i<response4.length; i++){
+    var j = response4[i];
+    var price = j[5].text;
+    answerPrice.push(price);
+  }
   return await answerPrice;
 }
 getPrice(12345).then((res) => {console.info(res)})
 
-async function CodeObj(answer){
-  var code = answer[6].text;
-  answerCode.push(code);
-}
+//Array with the deletion code from each response with the zip code
 async function getCode(ZipCode){
-  answers = await getResponses(ZipCode);
-  answers.forEach(CodeObj)
+  let response5 = await getResponses(ZipCode);
+  var i;
+  for(i = 0; i<response5.length; i++){
+    var j = response5[i];
+    var code = j[6].text;
+    answerCode.push(code);
+  }
   return await answerCode;
 }
 getCode(12345).then((res) => {console.info(res)})
 
+//checks to see if the deletion code matches
 async function deletePost(ZipCode,code){
   let codes = getCode(ZipCode);
   if (codes.indexOf('code') >= 0){
