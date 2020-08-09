@@ -42,57 +42,14 @@
     <!-- Masthead-->
 <!-- Portfolio Grid-->
 <section class="page-section bg-light" id="portfolio">
-    <div class="container">
+        <div class="container">
         <div class="text-center">
             <h2 class="section-heading text-uppercase" >Available Items Near You</h2>
             <h3 class="section-subheading text-muted">Find clothes for sale in your local community.</h3>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="portfolio-item" id = "Product1">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content" id = "Descrip1"> Description</div>
-                        </div>
-                        <img class="img-listing" id ="img1" src="assets/img/whiteshorts.jpeg" alt="" />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-text" id = "SellerName1"></div>
-                        <div class="portfolio-caption-text" id = "SellerContact1"></div>
-                        <div class="portfolio-caption-text" id = "Price1"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content" id = "Descrip2"></div>
-                        </div>
-                        <img class="img-listing" id ="img2"  src="assets/img/plaidshirt.jpeg" alt="" />
-                    </a>
-                    <div class="portfolio-caption">
-                        <div class="portfolio-caption-text" id = "SellerName2"></div>
-                        <div class="portfolio-caption-text" id = "SellerContact2"></div>
-                        <div class="portfolio-caption-text" id = "Price2"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <div class="portfolio-item">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content" id = "Descrip3"></div>
-                        </div>
-                        <img class="img-listing" id ="img3" src = "assets/img/greenshirt.jpeg" alt="" />
-                    </a>
-                    <div class="portfolio-caption">
-                      <div class="portfolio-caption-text" id = "SellerName3"></div>
-                      <div class="portfolio-caption-text" id = "SellerContact3"></div>
-                      <div class="portfolio-caption-text" id = "Price3"></div>
-                    </div>
-                </div>
-            </div>
+            
+            <div id="listing"></div>
 
         </div>
     </div>
@@ -113,35 +70,29 @@
 <script>
   async function postProduct(num){
     var ind = num + 1
-    var description = document.getElementById("Descrip" + ind);
-    var price = document.getElementById("Price" + ind);
-    var contact = document.getElementById("SellerContact" + ind);
-    var name = document.getElementById("SellerName" + ind);
-    var image = document.getElementById("img" + ind)
+    var div = document.createElement("div");
+    var listings = document.getElementById("listing");
     var arrDescrip = await getDescrip(ZipCode);
     var arrPrice = await getPrice(ZipCode);
     var arrContact = await getContact(ZipCode);
     var arrName = await getNames(ZipCode);
     var arrImg = await getFile(ZipCode)
     var url = arrImg[num];
-    const options = {
-      headers: {
-        Authorization: "bearer Hx54F2Cs27jM7eia4TBjTQaPq82oT4ZKmF6cgDsqMvKc"
-      }
-    };
-    var actImg = await fetch(url, options);
-    description.innerHTML = arrDescrip[num];
-    price.innerHTML = " Price: $" + arrPrice[num];
-    contact.innerHTML = "Contact: " + arrContact[num];
-    name.innerHTML = "Seller: " + arrName[num];
+    const options = new Headers();
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    options.set('Authorization', 'bearer Hx54F2Cs27jM7eia4TBjTQaPq82oT4ZKmF6cgDsqMvKc');
+    var actImg = await fetch(proxyurl + url, {method:'GET',
+        headers: options,});
+
+    div.innerHTML = '<div class="col-lg-4 col-sm-6 mb-4"><div class="portfolio-item"> <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1"> <div class=portfolio-hover><div class="portfolio-hover-content"> ' + arrDescrip[num] + '</div></div><img class="img-listing" id ="img1" src="assets/img/plaidshirt.jpeg" alt="" /></a>' + '<div class="portfolio-caption"><div class="portfolio-caption-text">Price: $' + arrPrice[num] + '</div><div class="portfolio-caption-text">Seller name: ' + arrName[num] + '</div><div class="portfolio-caption-text">Contact: ' + arrContact[num] + '</div></div></div></div>';
+    listings.appendChild(div);
   }
 
   async function createPosts(){
     var arrResponses = await getResponses(ZipCode);
     var i;
     for(i = 0; i < arrResponses.length; i++){
-      postProduct(i)
-      console.log(i)
+      postProduct(i);
     }
   }
   createPosts();

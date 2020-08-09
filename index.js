@@ -18,14 +18,13 @@ async function getAnswers(item){
   answers.push(ans);
 }
 async function getResponses(ZipCode){
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
   const url = "https://api.typeform.com/forms/I5TJPyLr/responses?query=" +ZipCode;
 
-  const options = {
-    headers: {
-      Authorization: "bearer Hx54F2Cs27jM7eia4TBjTQaPq82oT4ZKmF6cgDsqMvKc"
-    }
-  };
-  let response = await fetch(url, options);
+  const options = new Headers();
+  options.set('Authorization', 'bearer Hx54F2Cs27jM7eia4TBjTQaPq82oT4ZKmF6cgDsqMvKc');
+  let response = await fetch(proxyurl + url, {method:'GET',
+        headers: options,});
   response = await response.json();
   response = JSON.parse(JSON.stringify(response));
   answers = [];
