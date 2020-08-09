@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 let formID = 'I5TJPyLr';
 
 //variables
+const ZipCode = new URLSearchParams(window.location.search)
 let answers = [];
 let answerNames = [];
 let answerContact = [];
@@ -26,12 +27,6 @@ async function getResponses(ZipCode){
   let response = await fetch(url, options);
   response = await response.json();
   response = JSON.parse(JSON.stringify(response));
-  // let items = response.items;
-  // var i;
-  // for(i = 0; i < items.length; i++){
-  //   let ans = await items.answers
-  //   answers.push(ans)
-  // }
   answers = [];
   response.items.forEach(getAnswers);
   return await answers;
