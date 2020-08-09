@@ -57,9 +57,9 @@
                         <img class="img-fluid" id ="img1" src="assets/img/portfolio/01-thumbnail.jpg" alt="" />
                     </a>
                     <div class="portfolio-caption">
-                        <div class="portfolio-caption-text" id = "SellerName1">Seller: </div>
-                        <div class="portfolio-caption-text" id = "SellerContact1">Contact:</div>
-                        <div class="portfolio-caption-text" id = "Price1">Price:</div>
+                        <div class="portfolio-caption-text" id = "SellerName1"></div>
+                        <div class="portfolio-caption-text" id = "SellerContact1"></div>
+                        <div class="portfolio-caption-text" id = "Price1"></div>
                     </div>
                 </div>
             </div>
@@ -72,9 +72,9 @@
                         <img class="img-fluid" id ="img2"  src="assets/img/portfolio/02-thumbnail.jpg" alt="" />
                     </a>
                     <div class="portfolio-caption">
-                        <div class="portfolio-caption-text" id = "SellerName2">Seller: </div>
-                        <div class="portfolio-caption-text" id = "SellerContact2">Contact:</div>
-                        <div class="portfolio-caption-text" id = "Price2">Price:</div>
+                        <div class="portfolio-caption-text" id = "SellerName2"></div>
+                        <div class="portfolio-caption-text" id = "SellerContact2"></div>
+                        <div class="portfolio-caption-text" id = "Price2"></div>
                     </div>
                 </div>
             </div>
@@ -160,18 +160,25 @@
     var description = document.getElementById("Descrip" + ind);
     var price = document.getElementById("Price" + ind);
     var contact = document.getElementById("SellerContact" + ind);
-    var name = document.getElementById("SellerName1" + ind);
+    var name = document.getElementById("SellerName" + ind);
     var image = document.getElementById("img" + ind)
     var arrDescrip = await getDescrip(ZipCode);
     var arrPrice = await getPrice(ZipCode);
     var arrContact = await getContact(ZipCode);
     var arrName = await getNames(ZipCode);
     var arrImg = await getFile(ZipCode)
+    var url = arrImg[num];
+    const options = {
+      headers: {
+        Authorization: "bearer Hx54F2Cs27jM7eia4TBjTQaPq82oT4ZKmF6cgDsqMvKc"
+      }
+    };
+    var actImg = await fetch(url, options);
     description.innerHTML = arrDescrip[num];
-    price.innerHTML = arrPrice[num];
-    contact.innerHTML = arrContact[num];
-    name.innerHTML = arrName[num];
-    image.src = arrImg[num]
+    price.innerHTML = " Price: $" + arrPrice[num];
+    contact.innerHTML = "Contact: " + arrContact[num];
+    name.innerHTML = "Seller: " + arrName[num];
+    image.src = actImg;
   }
 
   async function createPosts(){

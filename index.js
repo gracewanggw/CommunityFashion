@@ -44,7 +44,7 @@ async function getNames(ZipCode){
   }
   return await answerNames;
 }
-//getNames(12345).then((res) => {console.info(res)})
+getNames(12345).then((res) => {console.info(res)})
 
 //Array with the contact information from each response with the zip code
 async function getContact(ZipCode){
