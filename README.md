@@ -12,3 +12,6 @@
 
 ## How I built it
 #### Bootstrap, TypeformAPI, HTML, CSS, JS We used JavaScript to get the response from the Response API from Typeform. This would give us all the responses from people who are selling items. We connected this with our listings page to show these items and their details.
+
+### Note:
+##### Needed to add a chrome extension for CORS to be able to run in browser. We used Moesif Orign & CORS Changer Chrome Extension
